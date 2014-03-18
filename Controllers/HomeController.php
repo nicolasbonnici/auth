@@ -1,6 +1,6 @@
 <?php
 
-namespace modules\auth\Controllers;
+namespace bundles\auth\Controllers;
 
 /**
  * Auth HomeController
