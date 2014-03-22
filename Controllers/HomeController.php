@@ -26,7 +26,7 @@ class HomeController extends \Library\Core\Controller {
                 if (isset($this->_params['redirect']) && !empty($this->_params['redirect'])) {
                     $sRedirectUrl = str_replace('*', '/', urldecode($this->_params['redirect']));
                 }
-                \Library\Core\Router::redirect($sRedirectUrl);
+                $this->redirect($sRedirectUrl);
             }// @todo gestion erreur de login
 
         }

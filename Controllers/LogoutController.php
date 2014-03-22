@@ -23,7 +23,7 @@ class LogoutController extends \Library\Core\Controller {
         //die(var_dump($oCookie->getCookieVar('PHPSESSID')));
 
         session_destroy();
-        \Library\Core\Router::redirect('/');
+        $this->redirect('/');
     }
 
 }
