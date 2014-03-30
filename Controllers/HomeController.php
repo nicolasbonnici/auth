@@ -18,7 +18,11 @@ class HomeController extends \Library\Core\Controller {
      */
     public function indexAction()
     {
-        // @todo rediriger si session existante
+        // A session was already found so we redirect to root
+        if (isset($_SESSION['token'])) {
+            $this->redirect('/');
+        }
+
         if (isset($this->_params['email']) && isset($this->_params['password'])) {
 
             if($this->login()) {
