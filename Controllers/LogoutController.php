@@ -1,5 +1,4 @@
 <?php
-
 namespace bundles\auth\Controllers;
 
 /**
@@ -7,11 +6,14 @@ namespace bundles\auth\Controllers;
  *
  * @author info
  */
-class LogoutController extends \Library\Core\Controller {
+class LogoutController extends \Library\Core\Controller
+{
 
-    public function __preDispatch() {}
+    public function __preDispatch()
+    {}
 
-    public function __postDispatch() {}
+    public function __postDispatch()
+    {}
 
     /**
      * Logout
@@ -20,12 +22,11 @@ class LogoutController extends \Library\Core\Controller {
     {
         // @todo Cookie::delete() et setter une constante pour le nom de session via la config
         $oCookie = new \Library\Core\Cookie();
-        //die(var_dump($oCookie->getCookieVar('PHPSESSID')));
-
+        // die(var_dump($oCookie->getCookieVar('PHPSESSID')));
+        
         session_destroy();
         $this->redirect('/');
     }
-
 }
 
 ?>

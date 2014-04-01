@@ -1,5 +1,4 @@
 <?php
-
 namespace bundles\auth\Controllers;
 
 /**
@@ -7,11 +6,14 @@ namespace bundles\auth\Controllers;
  *
  * @author info
  */
-class HomeController extends \Library\Core\Controller {
+class HomeController extends \Library\Core\Controller
+{
 
-    public function __preDispatch() {}
+    public function __preDispatch()
+    {}
 
-    public function __postDispatch() {}
+    public function __postDispatch()
+    {}
 
     /**
      * Login form
@@ -22,24 +24,24 @@ class HomeController extends \Library\Core\Controller {
         if (isset($_SESSION['token'])) {
             $this->redirect('/');
         }
-
+        
         if (isset($this->_params['email']) && isset($this->_params['password'])) {
-
-            if($this->login()) {
+            
+            if ($this->login()) {
                 $sRedirectUrl = '/todo/'; // @todo modifier ce chemin
-                if (isset($this->_params['redirect']) && !empty($this->_params['redirect'])) {
+                if (isset($this->_params['redirect']) && ! empty($this->_params['redirect'])) {
                     $sRedirectUrl = str_replace('*', '/', urldecode($this->_params['redirect']));
                 }
                 $this->redirect($sRedirectUrl);
-            }// @todo gestion erreur de login
-
+            } // @todo gestion erreur de login
         }
-
+        
         $this->render('auth/index.tpl');
     }
 
     /**
      * Open a user session
+     *
      * @return boolean
      */
     protected function login()
@@ -51,15 +53,14 @@ class HomeController extends \Library\Core\Controller {
                 'pass' => hash('SHA256', $this->_params['password'])
             ));
             $oUser->pass = null;
-            foreach ($oUser as $key=>$mValue) {
+            foreach ($oUser as $key => $mValue) {
                 $_SESSION[$key] = $mValue;
             }
             return true;
-        } catch(\Library\Core\EntityException $oException) {
+        } catch (\Library\Core\EntityException $oException) {
             return false;
         }
     }
-
 }
 
 ?>
