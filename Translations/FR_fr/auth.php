@@ -1,12 +1,15 @@
 <?php
-$tr['hello'] = 'Bonjour';
-$tr['update'] = 'Mettre à jour';
-$tr['save'] = 'Sauvegarder';
-$tr['cancel'] = 'Annuler';
-$tr['delete'] = 'Supprimer';
+/*
+ * auth
+ */
+$tr['welcome'] = 'Bienvenue';
+$tr['your_fullname'] = 'Votre nom complet';
+$tr['your_fullname_error'] = 'Veuillez entrer votre nom complet';
+$tr['your_email'] = 'Votre adresse email';
+$tr['your_email_error'] = 'Veuillez entrer une adresse email valide';
+$tr['login_to_your_account'] = 'Connection à votre compte utilisateur';
+$tr['login'] = 'Connection';
+$tr['logout'] = 'Déconnection';
+$tr['login_helper'] = 'Entrez les identifiants que vous avez fournit lors de votre inscription.';
 
-$tr['update_success'] = 'Enregistrement correctement mis à jour';
-$tr['update_error'] = 'Une erreur est survenue lors de la mis à jour';
-
-$tr['access_denied'] = 'Veuillez verifier vos permissions';
 ?>
