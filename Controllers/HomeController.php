@@ -54,9 +54,17 @@ class HomeController extends \Library\Core\Controller
                 'mail' => $this->aParams['email'],
                 'pass' => hash('SHA256', $this->aParams['password'])
             ));
-            $oUser->pass = null;
-            foreach ($oUser as $key => $mValue) {
-                $_SESSION[$key] = $mValue;
+            if ($oUser->isLoaded()) {
+
+                // Set user's lastlogin field
+                $oUser->lastlogin = time();
+
+                // Unset user's password
+                $oUser->pass = null;
+
+                foreach ($oUser as $key => $mValue) {
+                    $_SESSION[$key] = $mValue;
+                }
             }
             return true;
         } catch (\Library\Core\EntityException $oException) {
