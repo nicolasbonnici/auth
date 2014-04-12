@@ -38,7 +38,7 @@ class HomeController extends \Library\Core\Controller
             } // @todo gestion erreur de login
         }
 
-        $this->render('auth/index.tpl');
+        $this->oView->render($this->aView, 'auth/index.tpl');
     }
 
     /**
