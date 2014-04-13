@@ -12,7 +12,7 @@ class HomeController extends \Library\Core\Controller
     public function __preDispatch()
     {
         // overide appLayout view setting
-        $this->aView["appLayout"] = 'authLayout.tpl';
+        $this->aView["authLayout"] = 'authLayout.tpl';
     }
 
     public function __postDispatch()
