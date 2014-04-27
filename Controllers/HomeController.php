@@ -30,7 +30,7 @@ class HomeController extends \Library\Core\Controller
 
         if (isset($this->aParams['email']) && isset($this->aParams['password'])) {
             if ($this->login()) {
-                $sRedirectUrl = '/todo/'; // @todo modifier ce chemin
+                $sRedirectUrl = '/';
                 if (isset($this->aParams['redirect']) && ! empty($this->aParams['redirect'])) {
                     $sRedirectUrl = str_replace('*', '/', urldecode($this->aParams['redirect']));
                 }
