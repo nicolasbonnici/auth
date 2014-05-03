@@ -21,21 +21,27 @@ class HomeController extends \Library\Core\Controller
     /**
      * Login form
      */
-    public function indexAction()
+    public function indexAction($sRedirectUrl = '/')
     {
+        if (isset($this->aParams['redirect'])) {
+            if (isset($this->aParams['redirect']) && ! empty($this->aParams['redirect'])) {
+                $sRedirectUrl = str_replace('*', '/', urldecode($this->aParams['redirect']));
+            }
+            $this->aView['redirect'] = $this->aParams['redirect'];
+        }
+
         // A session was already found so we redirect to root
         if (isset($_SESSION['token'])) {
-            $this->redirect('/');
+            $this->redirect($sRedirectUrl);
         }
+
 
         if (isset($this->aParams['email']) && isset($this->aParams['password'])) {
             if ($this->login()) {
-                $sRedirectUrl = '/';
-                if (isset($this->aParams['redirect']) && ! empty($this->aParams['redirect'])) {
-                    $sRedirectUrl = str_replace('*', '/', urldecode($this->aParams['redirect']));
-                }
                 $this->redirect($sRedirectUrl);
-            } // @todo gestion erreur de login
+            } else {
+                $this->aView['sError'] = 'Mauvais indentifiant'; // @todo Translate component
+            }
         }
 
         $this->oView->render($this->aView, 'auth/index.tpl');
