@@ -1,12 +1,13 @@
 <?php
 namespace bundles\auth\Controllers;
 
+use bundles\error\Controllers\ErrorController;
 /**
  * Auth HomeController
  *
  * @author info
  */
-class HomeController extends \Library\Core\Controller
+class HomeController extends ErrorController
 {
 
     public function __preDispatch()
@@ -20,6 +21,8 @@ class HomeController extends \Library\Core\Controller
 
     /**
      * Login form
+     *
+     * @param string $sRedirectUrl
      */
     public function indexAction($sRedirectUrl = '/')
     {
@@ -79,4 +82,3 @@ class HomeController extends \Library\Core\Controller
     }
 }
 
-?>
