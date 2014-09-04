@@ -1,5 +1,9 @@
-{% extends authLayout %} {% block meta_title %}Test{% endblock meta_title %} {% block meta_description %}{% endblock
-meta_description %} {% block css %} {% endblock %} {% block js %} {% endblock %} {% block main %}
+{% extends authLayout %} 
+{% block meta_title %}Auth - Connection à votre compte{% endblock meta_title %} 
+{% block meta_description %}Connection à votre compte utilisateur.{% endblock meta_description %} 
+{% block css %} {% endblock %} 
+{% block js %} {% endblock %} 
+{% block main %}
 <div class="container">
     <div class="row clearfix transparentBlackBg well ui-shadow ui-rounded">
         <div class="col-md-12 column">
@@ -13,9 +17,15 @@ meta_description %} {% block css %} {% endblock %} {% block js %} {% endblock %}
             </div>
             <form class="form-horizontal col-md-12" role="form" method="POST"
                 action="/auth/home/index/{% if redirect|Exists %}redirect/{{redirect}}/{% endif %}">
+                {% if ! sError|Exists %}
                 <div class="alert alert-info">
                     <p><span class="glyphicon glyphicon-info-sign"></span> {{tr['login_helper']}}</p>
                 </div>
+                {% else %}
+                <div class="alert alert-danger">
+                    <p><span class="glyphicon glyphicon-warning-sign"></span> {{sError|safe}}</p>
+                </div>
+                {% endif %}
                 <div class="form-group">
                     <label for="emailInput" class="col-sm-2 control-label">Email</label>
                     <div class="col-sm-10">

@@ -43,7 +43,8 @@ class HomeController extends ErrorController
             if ($this->login()) {
                 $this->redirect($sRedirectUrl);
             } else {
-                $this->aView['sError'] = 'Mauvais indentifiant'; // @todo Translate component
+                // @todo internationnalisation
+                $this->aView['sError'] = 'Une erreur est survenue: Votre adresse email ou votre mot de passe est incorrect.'; // @todo Translate component
             }
         }
 
@@ -74,8 +75,10 @@ class HomeController extends ErrorController
                 foreach ($oUser as $key => $mValue) {
                     $_SESSION[$key] = $mValue;
                 }
+
+                return true;
             }
-            return true;
+            return false;
         } catch (\Library\Core\EntityException $oException) {
             return false;
         }
