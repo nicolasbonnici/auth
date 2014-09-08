@@ -2,6 +2,7 @@
 namespace bundles\auth\Controllers;
 
 use bundles\error\Controllers\ErrorController;
+use bundles\auth\Models\Auth;
 /**
  * Auth HomeController
  *
@@ -40,7 +41,8 @@ class HomeController extends ErrorController
 
 
         if (isset($this->aParams['email']) && isset($this->aParams['password'])) {
-            if ($this->login()) {
+            $oAuthModel = new Auth();
+            if ($oAuthModel->login($this->aParams)) {
                 $this->redirect($sRedirectUrl);
             } else {
                 // @todo internationnalisation
@@ -48,40 +50,8 @@ class HomeController extends ErrorController
             }
         }
 
-        $this->oView->render($this->aView, 'auth/index.tpl');
+        $this->oView->render($this->aView, 'home/index.tpl');
     }
 
-    /**
-     * Open a user session
-     *
-     * @return boolean
-     */
-    protected function login()
-    {
-        $oUser = new \app\Entities\User();
-        try {
-            $oUser->loadByParameters(array(
-                'mail' => $this->aParams['email'],
-                'pass' => hash('SHA256', $this->aParams['password'])
-            ));
-            if ($oUser->isLoaded()) {
-
-                // Set user's lastlogin field
-                $oUser->lastlogin = time();
-
-                // Unset user's password
-                $oUser->pass = null;
-
-                foreach ($oUser as $key => $mValue) {
-                    $_SESSION[$key] = $mValue;
-                }
-
-                return true;
-            }
-            return false;
-        } catch (\Library\Core\EntityException $oException) {
-            return false;
-        }
-    }
 }
 
