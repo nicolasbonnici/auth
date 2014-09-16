@@ -4,6 +4,7 @@ namespace bundles\auth\Models;
 use \Library\Core\Validator as Validator;
 use Library\Core\Mail;
 use bundles\user\Entities\User;
+use Library\Core\App;
 
 /**
  *
@@ -11,6 +12,10 @@ use bundles\user\Entities\User;
  */
 class Auth
 {
+    /**
+     * Required registration fields
+     * @var array
+     */
     private $aRequiredRegistrationFields = array(
     	'firstname',
     	'lastname',
@@ -44,7 +49,7 @@ class Auth
         try {
             $oUser->loadByParameters(array(
                 'mail' => $aCredentials['email'],
-                'pass' => hash('SHA256', $aCredentials['password'])
+                'pass' => $this->formatPassword($aCredentials['password'])
             ));
             if ($oUser->isLoaded()) {
 
@@ -94,15 +99,15 @@ class Auth
     }
 
     /**
-     * Retturn hashed and salted password
+     * Return hashed and salted password
      *
-     * @todo saltnpeppa
      * @param string $sPassword
      * @return string
      */
     public function formatPassword($sPassword)
     {
-        return hash('sha256', $sPassword);
+        $aConfig = App::getConfig();
+        return hash('sha256',  $aConfig['app']['secret_key'] . $sPassword);
     }
 
     /**
@@ -139,6 +144,10 @@ class Auth
         return ((count($aErrorFields) === 0) ? true : $aErrorFields);
     }
 
+    /**
+     * Send a registration confirmation email
+     * @param User $oUser
+     */
     private function sendConfirmationMail(User $oUser)
     {
 
